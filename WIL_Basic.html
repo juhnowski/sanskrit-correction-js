@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Test WIL Basic</title>
+  </head>
+  <body>
+    <div id="disp" class="disp"><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<h1>&nbsp;ṣiva</h1>
+<table class="display">
+<tbody>
+  <tr>
+    <td class="display" valign="top">
+      <span class="lnum"> [L=39546]</span>
+      <span class="hrefdata"> [p= <a href="../webtc/servepdf.php?page=871" target="_Blank">871</a>]</span>
+    </td>
+    <td class="display" valign="top">.<span class="sdata">ṣiva</span>¦ (<span class="sdata">u</span>) <span class="sdata">ṣivu</span> r. 4th cl. (<span class="sdata">sīvyati</span>)<br>1 To sew, to stitch.<br>3 To sow, as seed.</td>
+  </tr>
+  <tr>
+    <td class="display" valign="top">
+      <span class="lnum"> [L=39546]</span>
+      <span class="hrefdata"> [p= <a href="../webtc/servepdf.php?page=871" target="_Blank">871</a>]</span>
+    </td>
+    <td class="display" valign="top">.<span class="sdata">ṣiva</span>¦ (<span class="sdata">u</span>) <span class="sdata">ṣivu</span> r. 4th cl. (<span class="sdata">sīvyati</span>)<br>1 To sew, to stitch.<br>3 To sow, as seed.</td>
+  </tr>
+</tbody>
+</table>
+</div>
+<!--
+  <script type="text/javascript" src="corrections.js" </script>
+  -->
+<script>
+
+  String.prototype.contains = function(it) { return this.indexOf(it) != -1; };
+
+  var dict = ["acc","cae","ae","ap90","ap","ben","bhs","bop","bor","bur","ccs","gra","gst","ieg","inm","krm","mci","md","mw72","mw","mwe","pd","pe","pgn","pui","pwg","pw","sch","shs","skd","snp","stc","vcp","vei","wil","yat"];
+
+
+  function getDictCode() {
+    var t = document.title.toLowerCase();
+    var res = "";
+    dict.forEach(function(item) {
+      if (t.contains(item)) {
+        console.log("Contains " + item);
+        res = item;
+      };
+    });
+    return res;
+  }
+
+  window.onload =function () {
+    var el = document.getElementsByClassName('lnum');
+
+    for (var i = 0; i < el.length; ++i) {
+      var elem = el[i];
+      elem.style.cursor = "url('http://wiki-devel.sugarlabs.org/images/e/e2/Arrow.cur'), auto";
+
+      var pelem = elem.parentElement.parentElement;
+
+      elem.onclick = function (e) {
+        var ev = e || window.event;
+        var src = e.target || e.srcElement;
+        console.log("ev=" + ev);
+        console.log("src=" + src);
+        var dictcode = getDictCode();
+        var lnum_0 = elem.innerHTML.substring(4);
+        var lnum = lnum_0.substring(0,lnum_0.length-1);
+
+//TODO: convert to SLP1
+        var currenthw = pelem.getElementsByClassName("sdata")[0].innerHTML;
+        var correcthw = prompt("Correct form for SLP1 transliteration correcthw:", currenthw);
+        var errorcode = prompt("p - print error; t - typo; n - no change errorcode:", "");
+        var note = prompt("note", "");
+        var text = dictcode+":"+currenthw +","+lnum +":"+correcthw+":"+errorcode+":"+note;
+        var copyFrom = document.createElement("textarea");
+        copyFrom.textContent = text;
+        var body = document.getElementsByTagName('body')[0];
+        body.appendChild(copyFrom);
+        copyFrom.select();
+        document.execCommand('copy');
+        body.removeChild(copyFrom);
+      }
+
+    }
+  }
+
+</script>
+  </body>
+</html>
